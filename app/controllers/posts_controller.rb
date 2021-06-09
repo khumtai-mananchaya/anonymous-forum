@@ -23,6 +23,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params_content)
     session[:post_id] = @post.id
+    #Get current user id and add it to Post database
+    @post.username = Current.user.username
 
     respond_to do |format|
       if @post.save
@@ -42,6 +44,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: "Post updated" }
         format.json { render :show, status: :ok, location: @post }
       else
+        logger.debug "Failed at else"
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end

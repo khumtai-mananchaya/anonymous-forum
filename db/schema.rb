@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_06_09_013853) do
   enable_extension "plpgsql"
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id"
+    t.text "username", null: false
     t.serial "post_id", null: false
     t.string "post_content"
     t.integer "no_of_likes"
