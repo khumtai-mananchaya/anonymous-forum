@@ -1,8 +1,8 @@
 <h1>Anonymous Forum</h1>
 
 <% if Current.user %>
-    Logged in as: <%= Current.user.email %><br>
-    <= link_to 'Edit Password', edit_password_path %>
+    Logged in as: <%= Current.user.username %><br>
+    <%= link_to 'Edit Password', edit_password_path %>
     <%= button_to 'Logout', logout_path, method: :delete %>
     <% else %>
     <%= link_to 'Sign Up', sign_up_path %>
