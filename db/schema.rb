@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_06_09_013853) do
   enable_extension "plpgsql"
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.serial "post_id", null: false
     t.string "post_content"
     t.integer "no_of_likes"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_06_09_013853) do
   create_table "users", force: :cascade do |t|
     t.serial "user_id", null: false
     t.text "username"
-    t.text "password"
+    t.text "password_digest"
     t.text "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
