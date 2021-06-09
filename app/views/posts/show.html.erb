@@ -22,12 +22,12 @@
 
 <p>
   <strong>Post created:</strong>
-  <%= @post.post_created %>
+  <%= @post.created_at %>
 </p>
 
 <p>
   <strong>Post updated:</strong>
-  <%= @post.post_updated %>
+  <%= @post.updated_at %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

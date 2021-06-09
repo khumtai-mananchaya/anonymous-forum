@@ -20,8 +20,6 @@ ActiveRecord::Schema.define(version: 2021_06_09_000734) do
     t.string "post_content"
     t.integer "no_of_likes"
     t.integer "no_of_dislikes"
-    t.datetime "post_created"
-    t.datetime "post_updated"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -22,8 +22,8 @@
         <td><%= post.post_content %></td>
         <td><%= post.no_of_likes %></td>
         <td><%= post.no_of_dislikes %></td>
-        <td><%= post.post_created %></td>
-        <td><%= post.post_updated %></td>
+        <td><%= post.created_at %></td>
+        <td><%= post.updated_at %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
