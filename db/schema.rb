@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_06_09_013853) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id"
+    t.serial "post_id", null: false
     t.string "post_content"
     t.integer "no_of_likes"
     t.integer "no_of_dislikes"

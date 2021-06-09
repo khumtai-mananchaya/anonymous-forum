@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :users
   resources :posts
   root 'home#index'
+  post 'posts/new', to: 'posts#create'
   get 'sign_up', to: 'registrations#new'
   post 'sign_up', to: 'registrations#create'
   get 'sign_in', to: 'sessions#new'
