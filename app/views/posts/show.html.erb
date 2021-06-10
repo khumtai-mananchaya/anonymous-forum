@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @post.username %>
+</p>
+
+<p>
+  <strong>Post ID:</strong>
+  <%= @post.post_id %>
+</p>
+
+<p>
+  <strong>Post content:</strong>
+  <%= @post.post_content %>
+</p>
+
+<p>
+  <strong>No of likes:</strong>
+  <%= @post.no_of_likes %>
+</p>
+
+<p>
+  <strong>No of dislikes:</strong>
+  <%= @post.no_of_dislikes %>
+</p>
+
+<p>
+  <strong>Post created:</strong>
+  <%= @post.created_at %>
+</p>
+
+<p>
+  <strong>Post updated:</strong>
+  <%= @post.updated_at %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

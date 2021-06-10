@@ -1,0 +1,20 @@
+<% if Current.user %>
+    Logged in as: <%= Current.user.username %><br>
+    <%= link_to 'Edit Password', edit_password_path %>
+    <%= button_to 'Logout', logout_path, method: :delete %>
+    <% else %>
+    <%= link_to 'Sign Up', sign_up_path %>
+    or
+    <%= link_to 'Login', sign_in_path %>
+<% end %>
+</br>
+<% @post_cont.each do |pc| %>
+  <div class="card">
+
+    <div class="card-body">
+    <h5 class="card-title"><%= pc.post_content %></p></h5>
+    <footer class="blockquote-footer">created by <%= pc.username %></footer>
+    </div>
+  </div>
+  </br>
+<% end %>
