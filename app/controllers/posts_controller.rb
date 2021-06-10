@@ -24,7 +24,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params_content)
     session[:post_id] = @post.id
     #Get current user id and add it to Post database
-    @post.username = Current.user.username
+    @post.username = current_user.username
 
     respond_to do |format|
       if @post.save
@@ -62,7 +62,7 @@ class PostsController < ApplicationController
 
   def get_ownership
     ownership = false
-    if Current.user.username.eql? @post.username
+    if current_user.username.eql? @post.username
         ownership = true
     end
     ownership
