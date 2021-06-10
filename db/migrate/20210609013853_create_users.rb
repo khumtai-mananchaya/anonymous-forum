@@ -1,10 +1,10 @@
 class CreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
-      t.serial :user_id
-      t.text :username, limit: 15
-      t.text :password
-      t.text :email
+      t.integer :user_id
+      t.string :username, limit: 15
+      t.string :password
+      t.string :email
 
       t.timestamps
     end

@@ -12,24 +12,22 @@
 
 ActiveRecord::Schema.define(version: 2021_06_09_013853) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "posts", force: :cascade do |t|
-    t.text "username", null: false
-    t.serial "post_id", null: false
+  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "user_id"
     t.string "post_content"
     t.integer "no_of_likes"
     t.integer "no_of_dislikes"
+    t.datetime "post_created"
+    t.datetime "post_updated"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.serial "user_id", null: false
-    t.text "username"
-    t.text "password_digest"
-    t.text "email"
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "username", limit: 15
+    t.string "password"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
