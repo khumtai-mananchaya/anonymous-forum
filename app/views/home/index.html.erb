@@ -7,10 +7,14 @@
     <div class="card-body">
     <h5 class="card-title"><%= pc.post_content %></p></h5>
 
+		<% if Current.user %>
     <% if Current.user.username.eql? pc.username  %>
      <a href="#" style="float: right;">Edit</a> </br>
-                 <a href="#" style="float: right;">Delete</a>
+     <a href="#" style="float: right;">Delete</a>
     <% end %>
+    <% end %>
+
+		<footer class="blockquote-footer">last updated <%= pc.updated_at %> </footer>
     <footer class="blockquote-footer">created by <%= pc.username %></footer>
     </div>
   </div>
