@@ -21,6 +21,9 @@
       <% end %>
 
 		<footer class="blockquote-footer">last updated <%= pc.updated_at %> </footer>
+		<& if date_since_update(pc.updated_at) != 0 %>
+			<footer class="blockquote-footer"> <%= date_since_update(pc.updated_at) %> days</footer>
+		<% end %>
     <footer class="blockquote-footer">created by <%= pc.username %></footer>
     </div>
   </div>
