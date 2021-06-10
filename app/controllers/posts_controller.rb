@@ -24,7 +24,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params_content)
     session[:post_id] = @post.id
     #Get current user id and add it to Post database
-    @post.username = current_user.username
+    @post.username = Current.user.username
 
     respond_to do |format|
       if @post.save
@@ -58,14 +58,6 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: "Post deleted" }
       format.json { head :no_content }
     end
-  end
-
-  def get_ownership
-    ownership = false
-    if current_user.username.eql? @post.username
-        ownership = true
-    end
-    ownership
   end
 
   private

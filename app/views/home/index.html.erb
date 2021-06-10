@@ -14,6 +14,11 @@
     <div class="card-body">
     <h5 class="card-title"><%= pc.post_content %></p></h5>
     <footer class="blockquote-footer">created by <%= pc.username %></footer>
+    <% if Current.user.username.eql? pc.username  %>
+     <div class="one">this post is mine!</div>
+    <% else %>
+     <div class="two">this post is not mine!</div>
+    <% end %>
     </div>
   </div>
   </br>
