@@ -1,6 +1,28 @@
-<h5>Editing Post</h5>
 
-<%= render 'form', post: @post %>
+<%= form_with(model: @post, local: true, html: {class: 'form-signin'}) do |form| %>
+<h3>Edit Post</h3>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@post.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+  </br>
+  <%= form.text_area :post_content, id: 'post_content', class: 'form-control' %>
+</p>
+</br>
+<p>
+  <%= form.submit "Update Post", class: 'btn btn-outline-dark' %>
+</p>
+<%= link_to 'Back', request.referer, class: 'btn btn-outline-secondary' %>
+<% end %>

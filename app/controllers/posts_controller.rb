@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(post_params_content)
         format.html { redirect_to @post, notice: "Post updated" }
         format.json { render :show, status: :ok, location: @post }
       else
