@@ -7,7 +7,18 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="/">Home</a>
       <a class="nav-item nav-link" href="/users">Users</a>
-      <a class="nav-item nav-link" href="/posts/new">New</a>
+
+      <% if Current.user %>
+          <a class="nav-item nav-link" href="/posts/new">New</a>
+          <%= link_to 'Edit Password', edit_password_path %>
+          Logged in as: <%= Current.user.username %><br>
+          <%= button_to 'Logout', logout_path, method: :delete %>
+
+          <% else %>
+          <%= link_to 'Sign Up', sign_up_path %>
+          or
+          <%= link_to 'Login', sign_in_path %>
+      <% end %>
     </div>
   </div>
 </nav>
