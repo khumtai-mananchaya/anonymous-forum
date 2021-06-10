@@ -1,5 +1,6 @@
 
 <%= form_with(model: @post, local: true, html: {class: 'form-signin'}) do |form| %>
+</br>
 <h3>Edit Post</h3>
 
   <% if @post.errors.any? %>
@@ -22,7 +23,6 @@
 </p>
 </br>
 <p>
-  <%= form.submit "Update Post", class: 'btn btn-outline-dark' %>
+  <%= form.submit "Update Post", class: 'btn btn-outline-dark btn-sm ml-auto' %>
 </p>
-<%= link_to 'Back', request.referer, class: 'btn btn-outline-secondary' %>
 <% end %>
