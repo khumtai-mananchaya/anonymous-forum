@@ -8,11 +8,17 @@
     <h5 class="card-title"><%= pc.post_content %></p></h5>
 
 		<% if Current.user %>
-    <% if Current.user.username.eql? pc.username  %>
-     <a href="#" style="float: right;">Edit</a> </br>
-     <a href="#" style="float: right;">Delete</a>
-    <% end %>
-    <% end %>
+      <% if Current.user.username.eql? pc.username  %>
+      <ul class="nav justify-content-end">
+            <li class="nav-item">
+            <%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %>
+            <%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?', class: "nav-link active" } %>
+            </li>
+          </ul>
+
+       </br>
+      <% end %>
+      <% end %>
 
 		<footer class="blockquote-footer">last updated <%= pc.updated_at %> </footer>
     <footer class="blockquote-footer">created by <%= pc.username %></footer>
