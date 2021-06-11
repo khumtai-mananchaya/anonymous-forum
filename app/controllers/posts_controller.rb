@@ -17,6 +17,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @post = Post.find(params[:id])
   end
 
   # POST /posts or /posts.json
@@ -40,7 +41,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(post_params_content)
         format.html { redirect_to @post, notice: "Post updated" }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -59,6 +60,7 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

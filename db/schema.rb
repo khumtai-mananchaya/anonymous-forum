@@ -13,20 +13,15 @@
 ActiveRecord::Schema.define(version: 2021_06_09_013853) do
 
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "post_content"
-    t.integer "no_of_likes"
-    t.integer "no_of_dislikes"
-    t.datetime "post_created"
-    t.datetime "post_updated"
+    t.string "username", limit: 15
+    t.text "post_content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "user_id"
     t.string "username", limit: 15
-    t.string "password"
+    t.string "password_digest"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

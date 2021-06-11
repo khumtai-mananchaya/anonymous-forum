@@ -1,13 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">AF</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<a class="navbar-brand" href="#">AF</a>
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span></button>
+
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="/">Home</a>
-      <a class="nav-item nav-link" href="/users">Users</a>
-      <a class="nav-item nav-link" href="/posts/new">New</a>
+  	<div class="navbar-nav">
+  		<a class="nav-item nav-link" href="/">Home</a>
+
+  		<% if Current.user %>
+  			<a class="nav-item nav-link" href="/posts/new">New</a>
+
+  			<li class="nav-item dropdown">
+  				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  				<%= Current.user.username %></a>
+
+  				<div class="dropdown-menu ms-auto" aria-labelledby="navbarDropdown">
+  					<a class="dropdown-item" href="#">Profile</a>
+  					<%= link_to 'Edit Password', edit_password_path, class: "dropdown-item" %>
+  					<%= link_to 'Logout', logout_path, method: :delete, class: "dropdown-item" %>
+  				</div>
+  			</li>
+
+  		<% else %>
+  			<%= link_to 'Sign Up', sign_up_path, class: "nav-item nav-link ms-auto" %>
+        <%= link_to 'Login', sign_in_path, class: "nav-item nav-link ms-auto" %>
+      <% end %>
+
     </div>
   </div>
 </nav>
