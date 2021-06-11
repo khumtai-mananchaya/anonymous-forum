@@ -7,24 +7,19 @@
     <div class="card-body">
     <h5 class="card-title"><%= pc.post_content %></p></h5>
 
-		<% if Current.user %>
-      <% if Current.user.username.eql? pc.username  %>
-      <ul class="nav justify-content-end">
-            <li class="nav-item">
-            <%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %>
-            <%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?', class: "nav-link active" } %>
-            </li>
-          </ul>
+    <p>Created by <%= pc.username %></p>
+    <p>Posted <%= date_since_update(pc.updated_at) %> days <%= time_since_update(pc.updated_at) %> hours ago</p>
 
-       </br>
+    <% if Current.user %>
+    	<% if Current.user.username.eql? pc.username  %>
+    		<ul class="nav justify-content-end">
+          <li><%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %> </li>
+          <li><%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?'}, class: "nav-link active" %> </li>
+        </ul>
+        </br>
       <% end %>
-      <% end %>
+    <% end %>
 
-		<footer class="blockquote-footer">last updated <%= pc.updated_at %> </footer>
-		<& if date_since_update(pc.updated_at) != 0 %>
-			<footer class="blockquote-footer"> <%= date_since_update(pc.updated_at) %> days</footer>
-		<% end %>
-    <footer class="blockquote-footer">created by <%= pc.username %></footer>
     </div>
   </div>
   </br>
