@@ -37,6 +37,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   gem 'webdrivers'

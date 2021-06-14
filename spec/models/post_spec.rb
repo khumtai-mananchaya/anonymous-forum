@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
     before(:all) do
-        @user = User.new(
-            username: "TestingFoo",
-            email:      "tester@example.com",
-            password:   "randompasswordhere",
-        )
+        @user = FactoryBot.create(:user)
         @post = Post.create(post_content: "Doing some crud test right now!")
     end
 
