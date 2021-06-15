@@ -1,6 +1,6 @@
 class PasswordsController < ApplicationController
     # allows only logged in users
-    before_action :require_user_logged_in!
+    before_action :authenticate_user!
     def edit; end
     def update
       # update user password
