@@ -16,11 +16,13 @@ RSpec.describe PostsController, type: :controller do
             expect(response).to have_http_status "200"
         end
         it "creates a post" do
+            sign_in @current_user
             expect {
                 post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}
                 }.to change(Post, :count).by(1)
         end
         it "updates a post" do
+            sign_in @current_user
             random_post = Post.create(post_content: "Doing some post controller test right now!", username: @current_user.username)
             expect {
                 patch :update, :params => {post_content: "I can edit", id: random_post.id}
@@ -28,6 +30,7 @@ RSpec.describe PostsController, type: :controller do
               }.to change(random_post, :post_content).to("I can edit")
         end
         it "deletes a post" do
+            sign_in @current_user
             expect{
                 delete :destroy, params: { id: @post.id }
             }.to change(Post, :count).by(-1)
