@@ -15,7 +15,7 @@ RSpec.describe PostsController, type: :controller do
             get :index
             expect(response).to have_http_status "200"
         end
-        it "adds a post" do
+        it "creates a post" do
             expect {
                 post :create, :params => { post_content: "Checking if I can add a post" }, :format => :json
                 }.to change(Post, :count).by(1)
