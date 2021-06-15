@@ -5,7 +5,6 @@ RSpec.describe PostsController, type: :controller do
         before do
             Current.user = FactoryBot.create(:user)
             @post = Post.create(post_content: "Doing some post controller test right now!")
-            #post :create, params: { post_content: "temp content"}
         end
         it "responds successfully" do
             get :index
