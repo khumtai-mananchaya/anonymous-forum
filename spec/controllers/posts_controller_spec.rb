@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe PostsController, type: :controller do
     describe "index" do
         before do
-            Current.user = FactoryBot.create(:user)
-            @post = Post.create(post_content: "Doing some post controller test right now!")
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
+            @post = Post.create(post_content: "My first test", username: @current_user.username)
         end
         it "responds successfully" do
             get :index
@@ -20,10 +21,11 @@ RSpec.describe PostsController, type: :controller do
                 }.to change(Post, :count).by(1)
         end
         it "updates a post" do
+            random_post = Post.create(post_content: "Doing some post controller test right now!", username: @current_user.username)
             expect {
-                patch :update, :params => {post_content: "I can edit", id: @post.id}
-                @post.reload
-              }.to change(@post, :post_content).to("I can edit")
+                patch :update, :params => {post_content: "I can edit", id: random_post.id}
+                random_post.reload
+              }.to change(random_post, :post_content).to("I can edit")
         end
         it "deletes a post" do
             expect{
@@ -32,7 +34,6 @@ RSpec.describe PostsController, type: :controller do
         end
     end
     context "as a different user" do
-        #Will fix this after successfully creating unauthorized update/delete
         before do
             @user_one = FactoryBot.create(:user)
             @user_two = FactoryBot.create(:user)
@@ -40,17 +41,17 @@ RSpec.describe PostsController, type: :controller do
             @post_diff = Post.create(post_content: "Doing some tests!")
         end
         it "does not update an unauthorized post" do
-            #Current.user = @user_two
-            #expect {
-            #    patch :update, :params => {post_content: "I can edit", id: @post_diff.id}
-            #    @post_diff.reload
-            #}.to_not change(@post_diff, :post_content)
+            sign_in @user_two
+            expect {
+                patch :update, :params => {post_content: "I can edit", id: @post_diff.id}
+                @post_diff.reload
+            }.to_not change(@post_diff, :post_content)
         end
         it "does not delete an unauthorized post" do
-            #Current.user = @user_two
-            #expect{
-            #    delete :destroy, params: { id: @post_diff.id }
-            #}.to change(Post, :count).by(-1)
+            sign_in @user_two
+                expect{
+                delete :destroy, params: { id: @post_diff.id }
+            }.to change(Post, :count).by(0)
         end
     end
     context "as a guest" do
