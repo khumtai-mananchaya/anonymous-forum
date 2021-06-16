@@ -2,24 +2,40 @@
 
 </br>
 <% @post_cont.each do |pc| %>
-  <div class="card">
+  <div class="card" style="width: 50rem;">
 
     <div class="card-body">
-    <h5 class="card-title"><%= pc.post_content %></p></h5>
 
-    <p>Created by <%= pc.username %></p>
-    <p>Posted <%= date_since_update(pc.updated_at) %> days <%= time_since_update(pc.updated_at) %> hours ago</p>
+    	<div class="row">
 
-    <% if Current.user %>
-    	<% if Current.user.username.eql? pc.username  %>
-    		<ul class="nav justify-content-end">
-          <li><%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %> </li>
-          <li><%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?'}, class: "nav-link active" %> </li>
-        </ul>
-        </br>
-      <% end %>
-    <% end %>
+    		<div class="col-md-4">
+    		</div>
 
+    		<div class="col-md-8">
+    				<h5 class="card-title"><%= pc.post_content %></p></h5>
+    		</div>
+    	</div>
+    	<div class="row">
+
+    		<div class="col-md-5">
+    				<p>Created by <%= pc.username %></p>
+            <p>Posted <%= date_since_update(pc.updated_at) %> days <%= time_since_update(pc.updated_at) %> hours ago</p>
+    		</div>
+
+    		<div class="col-md-4"> </div>
+
+    		<div class="col-md-3">
+    			</br>
+    			<% if Current.user %>
+    				<% if Current.user.username.eql? pc.username  %>
+    					<ul class="nav justify-content-end">
+    						<li><%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %> </li>
+    						<li><%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?'}, class: "nav-link active" %> </li>
+              </ul>
+            <% end %>
+          <% end %>
+    		</div>
+      </div>
     </div>
   </div>
   </br>
