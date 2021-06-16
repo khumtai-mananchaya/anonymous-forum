@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :home do
     member do
         put 'like' => 'home#like'
+        put "unlike" => "home#unlike"
     end
   end
   root 'home#index'
