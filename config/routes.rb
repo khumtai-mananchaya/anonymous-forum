@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :users
   resources :posts
+  resources :home do
+    member do
+        put 'like' => 'home#like'
+    end
+  end
   root 'home#index'
   get 'index', to: 'home#index'
   get 'sign_up', to: 'registrations#new'
