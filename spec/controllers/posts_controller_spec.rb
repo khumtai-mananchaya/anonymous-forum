@@ -15,11 +15,27 @@ RSpec.describe PostsController, type: :controller do
             get :index
             expect(response).to have_http_status "200"
         end
+    end
+
+    describe "#new" do
+        before do
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
+            @post = Post.create(post_content: "My first test", username: @current_user.username)
+        end
         it "creates a post" do
             sign_in @current_user
             expect {
                 post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}
                 }.to change(Post, :count).by(1)
+        end
+    end
+
+    describe "#edit" do
+        before do
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
+            @post = Post.create(post_content: "My first test", username: @current_user.username)
         end
         it "updates a post" do
             sign_in @current_user
@@ -29,6 +45,14 @@ RSpec.describe PostsController, type: :controller do
                 random_post.reload
               }.to change(random_post, :post_content).to("I can edit")
         end
+    end
+
+    describe "#edit" do
+        before do
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
+            @post = Post.create(post_content: "My first test", username: @current_user.username)
+        end
         it "deletes a post" do
             sign_in @current_user
             expect{
@@ -36,6 +60,7 @@ RSpec.describe PostsController, type: :controller do
             }.to change(Post, :count).by(-1)
         end
     end
+
     context "as a different user" do
         before do
             @user_one = FactoryBot.create(:user)
