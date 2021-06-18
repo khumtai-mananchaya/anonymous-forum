@@ -10,14 +10,26 @@
 
     		<div class="col-md-3">
     			<div class="like_count">
-              <%= pc.get_likes.size %>
-            </div>
+              <%= pc.get_likes.size %> ❤️
+          </div>
+					<% if Current.user %>
+          	<% if Current.user.liked? pc %>
+          		<p> <%= link_to unlike_home_path(pc), class: "liked", method: :put, remote: :true do %>Undo️ </p><% end%>
+          	<% else %>
+            	<p> <%= link_to like_home_path(pc), class: "like-btn", method: :put, remote: :true do %>Like </p><% end%>
+          	<% end%>
+					<% end%>
 
-          <% if Current.user.liked? pc %>
-          	<p> <%= link_to unlike_home_path(pc), class: "liked", method: :put, remote: :true do %>Unlike </p><% end%>
+				<div class="dislike_count">
+        	<%= pc.get_dislikes.size %> 😡
+        </div>
+        <% if Current.user %>
+          <% if Current.user.disliked? pc %>
+            <p> <%= link_to undislike_home_path(pc), class: "disliked", method: :put, remote: :true do %>Undo </p><% end%>
           <% else %>
-            <p> <%= link_to like_home_path(pc), class: "like-btn", method: :put, remote: :true do %>Like </p><% end%>
+          	<p> <%= link_to dislike_home_path(pc), class: "dislike-btn", method: :put, remote: :true do %>Angry </p><% end%>
           <% end%>
+        <% end%>
 
         </div>
 
