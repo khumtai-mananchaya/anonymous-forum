@@ -1,22 +1,32 @@
 class HomeController < ApplicationController
-before_action :authenticate_user!, only: [:like, :unlike]
+#before_action :authenticate_user!, only: [:like, :unlike, :dislike, :undislike]
 
   def index
-    @post_cont = Post.all.order('updated_at DESC')
+    @post = Post.all.order('updated_at DESC')
   end
 
   def like
-    @post = Post.find_by(params[:id])
-    if Current.user.voted_for? @post
-       @post.unliked_by Current.user
-    else
-       @post.liked_by Current.user
-    end
+    @post = Post.find(params[:id])
+    @post.liked_by Current.user
+    redirect_to root_path
   end
 
   def unlike
-    @post = Post.find_by(params[:id])
+    @post = Post.find(params[:id])
     @post.unliked_by Current.user
+    redirect_to root_path
+  end
+
+  def dislike
+    @post = Post.find_by(params[:id])
+    @post.disliked_by Current.user
+    redirect_to root_path
+  end
+
+  def undislike
+    @post = Post.find_by(params[:id])
+    @post.undisliked_by Current.user
+    redirect_to root_path
   end
 
   def date_since_update(post_date)

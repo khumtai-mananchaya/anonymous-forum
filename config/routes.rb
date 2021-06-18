@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     member do
         put 'like' => 'home#like'
         put "unlike" => "home#unlike"
+        put "dislike" => "home#dislike"
+        put "undislike" => "home#undislike"
     end
   end
   root 'home#index'
