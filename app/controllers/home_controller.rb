@@ -18,13 +18,13 @@ class HomeController < ApplicationController
   end
 
   def dislike
-    @post = Post.find_by(params[:id])
+    @post = Post.find(params[:id])
     @post.disliked_by Current.user
     redirect_to root_path
   end
 
   def undislike
-    @post = Post.find_by(params[:id])
+    @post = Post.find(params[:id])
     @post.undisliked_by Current.user
     redirect_to root_path
   end
