@@ -12,7 +12,7 @@ RSpec.describe Post, type: :model do
 
     it "is invalid without a post_content" do
         post_invalid = Post.create(post_content: nil)
-        post_invalid.valid?
+        expect(post_invalid).not_to be_valid
     end
 
     it 'checks that a post can be read' do

@@ -5,37 +5,46 @@ RSpec.describe PostsController, type: :controller do
         before do
             @current_user = FactoryBot.create(:user)
             Current.user = @current_user
-            @post = Post.create(post_content: "My first test", username: @current_user.username)
         end
-        it "responds successfully" do
-            get :index
-            expect(response).to be_successful
-        end
-        it "returns a 200 response" do
-            get :index
-            expect(response).to have_http_status "200"
-        end
-        it "creates a post" do
+        subject { get :index }
+        it { is_expected.to be_successful }
+        it { is_expected.to have_http_status "200" }
+    end
+
+    describe "#new" do
+        subject{post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}}
+        before do
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
             sign_in @current_user
-            expect {
-                post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}
-                }.to change(Post, :count).by(1)
+        end
+        it { expect{subject}.to change(Post, :count).by(1) }
+    end
+
+    describe "#edit" do
+        before do
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
+            sign_in @current_user
+            @random_post = Post.create(post_content: "Change me", username: @current_user.username)
         end
         it "updates a post" do
-            sign_in @current_user
-            random_post = Post.create(post_content: "Doing some post controller test right now!", username: @current_user.username)
-            expect {
-                patch :update, :params => {post_content: "I can edit", id: random_post.id}
-                random_post.reload
-              }.to change(random_post, :post_content).to("I can edit")
-        end
-        it "deletes a post" do
-            sign_in @current_user
-            expect{
-                delete :destroy, params: { id: @post.id }
-            }.to change(Post, :count).by(-1)
+            expect{put :update, :params => {post_content: "I can edit", id: @random_post.id};
+            @random_post.reload}.to change(@random_post, :post_content).from("Change me").to("I can edit")
         end
     end
+
+    describe "#delete" do
+        subject{ delete :destroy, params: { id: @post.id } }
+        before do
+            @current_user = FactoryBot.create(:user)
+            Current.user = @current_user
+            @post = Post.create(post_content: "My first test", username: @current_user.username)
+            sign_in @current_user
+        end
+        it { expect{subject}.to change(Post, :count).by(-1) }
+    end
+
     context "as a different user" do
         before do
             @user_one = FactoryBot.create(:user)
