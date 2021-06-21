@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   resources :users
   resources :posts
+  resources :home do
+    member do
+        put 'like' => 'home#like'
+        put "unlike" => "home#unlike"
+        put "dislike" => "home#dislike"
+        put "undislike" => "home#undislike"
+    end
+  end
   root 'home#index'
   get 'index', to: 'home#index'
   get 'sign_up', to: 'registrations#new'

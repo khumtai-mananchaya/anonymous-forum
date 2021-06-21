@@ -1,0 +1,4 @@
+$('.like-btn').on('ajax:success', function(){
+  $(this).parent().parent().find('.like_count').html('<%= @post.get_likes.size %>');
+  $(this).closest('.liked').html('Undo');
+});

@@ -1,25 +1,64 @@
 
 
 </br>
-<% @post_cont.each do |pc| %>
-  <div class="card">
+<% @post.each do |pc| %>
+  <div class="card" style="width: 50rem;">
 
     <div class="card-body">
-    <h5 class="card-title"><%= pc.post_content %></p></h5>
 
-    <p>Created by <%= pc.username %></p>
-    <p>Posted <%= date_since_update(pc.updated_at) %> days <%= time_since_update(pc.updated_at) %> hours ago</p>
+    	<div class="row mt-3 mb-5">
 
-    <% if Current.user %>
-    	<% if Current.user.username.eql? pc.username  %>
-    		<ul class="nav justify-content-end">
-          <li><%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %> </li>
-          <li><%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?'}, class: "nav-link active" %> </li>
-        </ul>
-        </br>
-      <% end %>
-    <% end %>
+    		<div class="col-md-3">
+    			<div class="like_count">
+              <%= pc.get_likes.size %> ❤️
+          </div>
+					<% if Current.user %>
+          	<% if Current.user.liked? pc %>
+          		<p> <%= link_to unlike_home_path(pc), class: "liked", method: :put, remote: :true do %>Undo️ </p><% end%>
+          	<% else %>
+            	<p> <%= link_to like_home_path(pc), class: "like-btn", method: :put, remote: :true do %>Like </p><% end%>
+          	<% end%>
+					<% end%>
 
+				<div class="dislike_count">
+        	<%= pc.get_dislikes.size %> 😡
+        </div>
+        <% if Current.user %>
+          <% if Current.user.disliked? pc %>
+            <p> <%= link_to undislike_home_path(pc), class: "disliked", method: :put, remote: :true do %>Undo </p><% end%>
+          <% else %>
+          	<p> <%= link_to dislike_home_path(pc), class: "dislike-btn", method: :put, remote: :true do %>Angry </p><% end%>
+          <% end%>
+        <% end%>
+
+        </div>
+
+    		<div class="col-md-9">
+    				<h5 class="card-title"><%= pc.post_content %></p></h5>
+    		</div>
+    	</div>
+    	<div class="row">
+
+
+    		<div class="col-md-3">
+    				<p>Created by <%= pc.username %></p>
+    		</div>
+
+    		<div class="col-md-5">
+    			<p>Posted <%= date_since_update(pc.updated_at) %> days <%= time_since_update(pc.updated_at) %> hours ago</p>
+    		</div>
+
+    		<div class="col-md-3">
+    			<% if Current.user %>
+    				<% if Current.user.username.eql? pc.username  %>
+    					<ul class="nav justify-content-end">
+    						<li><%= link_to 'Edit', edit_post_path(pc), class: "nav-link active" %> </li>
+    						<li><%= link_to 'Delete', pc, method: :delete, data: { confirm: 'Are you sure?'}, class: "nav-link active" %> </li>
+              </ul>
+            <% end %>
+          <% end %>
+    		</div>
+      </div>
     </div>
   </div>
   </br>

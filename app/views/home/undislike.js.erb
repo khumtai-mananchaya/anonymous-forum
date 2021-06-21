@@ -1,0 +1,4 @@
+$('.disliked').bind('ajax:success', function(){
+  $(this).parent().parent().find('.dislike_count').html('<%= @post.get_dislikes.size %>');
+  $(this).closest('.disliked').html('Angry');
+});
