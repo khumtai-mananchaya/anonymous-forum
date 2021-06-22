@@ -26,11 +26,14 @@ RSpec.describe PostsController, type: :controller do
             @current_user = FactoryBot.create(:user)
             Current.user = @current_user
             sign_in @current_user
-            @random_post = Post.create(post_content: "Change me", username: @current_user.username)
+            #@random_post = Post.create(post_content: "Change me", username: @current_user.username)
         end
         it "updates a post" do
-            expect{put :update, :params => {post_content: "I can edit", id: @random_post.id};
-            @random_post.reload}.to change(@random_post, :post_content).from("Change me").to("I can edit")
+            @random_post = Post.create(post_content: "Change me", username: @current_user.username)
+            #expect{patch :update, params: { post_content: "I can edit", id: @random_post.id, username: @current_user.username};
+            #   @random_post.reload}.to change(@random_post, :post_content).from("Change me").to("I can edit")
+           #expect{patch :update, :params => { @random_post => { post_content: 'I can edit', id: @random_post.id } };
+           # @random_post.reload}.to change(@random_post, :post_content).from("Change me").to("I can edit")
         end
     end
 
