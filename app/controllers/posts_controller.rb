@@ -74,9 +74,6 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:post_content, :id, :username)
     end
-    #def post_params_update
-    #   params.permit(:post_content, :id, :username)
-    #end
     def only_authorized_user!
         redirect_to root_path, alert: 'You are not the owner of the post' if Current.user.username != @post.username
     end

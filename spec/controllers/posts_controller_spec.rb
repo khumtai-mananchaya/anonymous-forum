@@ -12,28 +12,25 @@ RSpec.describe PostsController, type: :controller do
     end
 
     describe "#new" do
-        subject{post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}}
+        let(:create_new){post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}}
         before do
             @current_user = FactoryBot.create(:user)
             Current.user = @current_user
             sign_in @current_user
         end
-        it { expect{subject}.to change(Post, :count).by(1) }
+        it { expect{create_new}.to change(Post, :count).by(1) }
     end
 
     describe "#edit" do
+        let(:random_post) {Post.create(post_content: "Change me")}
+        let(:update_action) {put :update, params: { id: random_post.id, random_post => { post_content: 'I can edit'} }}
         before do
             @current_user = FactoryBot.create(:user)
             Current.user = @current_user
             sign_in @current_user
-            #@random_post = Post.create(post_content: "Change me", username: @current_user.username)
         end
         it "updates a post" do
-            @random_post = Post.create(post_content: "Change me", username: @current_user.username)
-            #expect{patch :update, params: { post_content: "I can edit", id: @random_post.id, username: @current_user.username};
-            #   @random_post.reload}.to change(@random_post, :post_content).from("Change me").to("I can edit")
-           #expect{patch :update, :params => { @random_post => { post_content: 'I can edit', id: @random_post.id } };
-           # @random_post.reload}.to change(@random_post, :post_content).from("Change me").to("I can edit")
+            expect{update_action; random_post.reload}.to change(random_post, :post_content).from("Change me").to("I can edit")
         end
     end
 
