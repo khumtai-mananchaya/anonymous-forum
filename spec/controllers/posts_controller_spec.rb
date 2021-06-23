@@ -11,7 +11,7 @@ RSpec.describe PostsController, type: :controller do
         it { is_expected.to have_http_status "200" }
     end
 
-    describe "#new" do
+    describe "POST #create" do
         let(:create_new){post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}}
         before do
             @current_user = FactoryBot.create(:user)
@@ -21,9 +21,9 @@ RSpec.describe PostsController, type: :controller do
         it { expect{create_new}.to change(Post, :count).by(1) }
     end
 
-    describe "#edit" do
+    describe "PATCH #update" do
         let(:random_post) {Post.create(post_content: "Change me")}
-        let(:update_action) {put :update, params: { id: random_post.id, random_post => { post_content: 'I can edit'} }}
+        let(:update_action) {patch :update, params: { id: random_post.id, random_post => { post_content: 'I can edit'} }}
         before do
             @current_user = FactoryBot.create(:user)
             Current.user = @current_user
@@ -34,7 +34,7 @@ RSpec.describe PostsController, type: :controller do
         end
     end
 
-    describe "#delete" do
+    describe "DELETE #destroy" do
         subject{ delete :destroy, params: { id: @post.id } }
         before do
             @current_user = FactoryBot.create(:user)
