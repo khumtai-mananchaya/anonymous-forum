@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe HomeController, type: :controller do
     describe "index" do

@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe PostsController, type: :controller do
     describe "index" do
@@ -26,14 +25,12 @@ RSpec.describe PostsController, type: :controller do
         let(:random_post) {Post.create(post_content: "Change me")}
         let(:update_action) {patch :update, params: { id: random_post.id,
             random_post => { post_content: 'I can edit'} }; random_post.reload}
-        let(:update_action_two) {put :update, :params => {post_content: "I can edit", id: random_post.id}; random_post.reload}
         before do
             @current_user = FactoryBot.create(:user)
             Current.user = @current_user
             sign_in @current_user
         end
         it "updates a post" do
-            binding.pry
             expect{update_action}.to change(random_post, :post_content).from("Change me").to("I can edit")
         end
     end
