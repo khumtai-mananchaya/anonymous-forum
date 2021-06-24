@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.with_attached_images
+    @posts = Post.all
   end
 
   # GET /posts/1 or /posts/1.json
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
     session[:post_id] = @post.id
     #Get current user id and add it to Post database
     @post.username = Current.user.username
-    @post.images.attach(params[:images])
+    @post.image.attach(post_params[:image]) if post_params[:image].present?
 
     respond_to do |format|
       if @post.save
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params) && Current.user.username == @post.username
-        @post.images.attach(post_params[:images]) if post_params[:images].present?
+        @post.image.attach(post_params[:image]) if post_params[:image].present?
         format.html { redirect_to @post, notice: "Post updated" }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -74,7 +74,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:post_content, :id, :username, images: [])
+      params.require(:post).permit(:post_content, :id, :username, :image)
     end
     def only_authorized_user!
         redirect_to root_path, alert: 'You are not the owner of the post' if Current.user.username != @post.username

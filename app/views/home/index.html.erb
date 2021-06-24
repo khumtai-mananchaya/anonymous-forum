@@ -35,7 +35,7 @@
 
     		<div class="col-md-9">
     				<h5 class="card-title"><%= pc.post_content %></p></h5>
-						<%= image_tag(url_for(pc.images)) if pc.images.attached? %>
+						<%= image_tag(url_for(pc.image),width: 550) if pc.image.attached? %>
     		</div>
     	</div>
     	<div class="row">

@@ -21,8 +21,8 @@
 </p>
 
 <p>
-  <strong>Post images:</strong>
-  <%= image_tag(url_for(@post.images)) if @post.images.attached? %>
+  <strong>Post image:</strong>
+  <%= image_tag(url_for(@post.image),width: 800) if @post.image.attached? %>
 </p>
 
 

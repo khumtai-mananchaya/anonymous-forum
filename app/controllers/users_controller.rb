@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    @user.avatar.attach(params[:avatar]) if user_params[:avatar].present?
+    @user.avatar.attach(user_params[:avatar]) if user_params[:avatar].present?
 
     respond_to do |format|
       if @user.save
