@@ -3,7 +3,12 @@
 <% if Current.user %>
 <%= form_with model: @post, :html => {:class => "form"}, url: new_post_path do |f| %>
 	<div class="form-group">
-			<%= f.text_field :post_content %>
+			<%= f.text_area :post_content %>
+
+
+			<%= f.label :images %>
+			<%= f.file_field :images, direct_upload: true, multiple: true, class: 'form-control' %>
+
 		</div>
 		<div class="form-group">
 		<%= f.submit 'submit' %>

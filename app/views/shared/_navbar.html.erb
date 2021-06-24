@@ -20,7 +20,7 @@
       	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= Current.user.username %></a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        	<a class="dropdown-item" href="#">Profile</a>
+        	<%= link_to 'Profile', user_path(Current.user), class: "dropdown-item" %>
         	<%= link_to 'Edit Password', edit_password_path, class: "dropdown-item" %>
         	<%= link_to 'Logout', logout_path, method: :delete, class: "dropdown-item" %>
         </div>

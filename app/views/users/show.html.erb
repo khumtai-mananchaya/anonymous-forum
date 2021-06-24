@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @user.user_id %>
+  <strong>Avatar:</strong><br>
+  	<%= image_tag(url_for(@user.avatar), :size => '200x200') if @user.avatar.attached? %>
 </p>
 
 <p>
@@ -19,6 +19,7 @@
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

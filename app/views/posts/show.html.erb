@@ -20,5 +20,11 @@
   <%= @post.updated_at %>
 </p>
 
+<p>
+  <strong>Post images:</strong>
+  <%= image_tag(url_for(@post.images)) if @post.images.attached? %>
+</p>
+
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
