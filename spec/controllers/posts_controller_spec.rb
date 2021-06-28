@@ -16,7 +16,6 @@ RSpec.describe PostsController, type: :controller do
         let(:create_image) {post :create, :params => { :post => { post_content: "look", image: upload_image }, :format => :json}}
         before {Current.user = fac_user}
         it { expect{create_new}.to change(Post, :count).by(1) }
-
         it 'attaches the uploaded image' do
             expect {create_image}.to change(ActiveStorage::Attachment, :count).by(1)
         end

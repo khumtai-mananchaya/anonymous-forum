@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         put "undislike" => "home#undislike"
     end
   end
+
   get 'sign_up', to: 'registrations#new'
   post 'sign_up', to: 'registrations#create'
 

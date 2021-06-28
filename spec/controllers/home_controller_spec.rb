@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe HomeController, type: :controller do
     describe "index" do
@@ -13,39 +12,39 @@ RSpec.describe HomeController, type: :controller do
         end
     end
 
-    describe "post can be liked and unliked" do
-        let(:like_post) {Post.create(post_content: "Like me")}
-        let(:like_action) {put :like, params: { id: like_post.id }; like_post.reload}
-        let(:unlike_action) {put :unlike, params: { id: like_post.id }; like_post.reload}
-        before do
-            @current_user = FactoryBot.create(:user)
-            Current.user = @current_user
-            sign_in @current_user
-        end
-        it "likes post" do
-            expect{like_action}.to change(like_post, :cached_votes_up).to(1)
-        end
-        it "unlikes post" do
-            like_action
-            expect{unlike_action}.to change(like_post, :cached_votes_up).to(0)
+    before do
+        @current_user = FactoryBot.create(:user)
+        Current.user = @current_user
+    end
+    let(:post) {Post.create(post_content: "Hello World")}
+    describe "PUT #like" do
+        subject { put :like, params: { id: post.id }}
+        it "increments votes_up by 1" do
+            expect{ subject }.to change{ Post.find(post.id).cached_votes_up }.to(1)
         end
     end
-
-    describe "post can be disliked and undisliked" do
-        let(:dislike_post) {Post.create(post_content: "Dislike me")}
-        let(:dislike_action) {put :dislike, params: { id: dislike_post.id }; dislike_post.reload}
-        let(:undislike_action) {put :undislike, params: { id: dislike_post.id }; dislike_post.reload}
-        before do
-            @current_user = FactoryBot.create(:user)
-            Current.user = @current_user
-            sign_in @current_user
+    describe "PUT #unlike" do
+        subject { put :unlike, params: { id: post.id }}
+         before do
+             put :like, params: { id: post.id }
+         end
+        it "decrements votes_up by 1" do
+            expect{subject}.to change{ Post.find(post.id).cached_votes_up }.to(0)
         end
-        it "dislikes post" do
-            expect{dislike_action}.to change(dislike_post, :cached_votes_down).to(1)
+    end
+    describe "PUT #dislike" do
+        subject { put :dislike, params: { id: post.id }}
+        it "increments votes_down by 1" do
+            expect{ subject }.to change{ Post.find(post.id).cached_votes_down }.to(1)
         end
-        it "undislikes post" do
-            dislike_action
-            expect{undislike_action}.to change(dislike_post, :cached_votes_down).to(0)
+    end
+    describe "PUT #unlike" do
+        subject { put :undislike, params: { id: post.id }}
+         before do
+             put :dislike, params: { id: post.id }
+         end
+        it "decrements votes_down by 1" do
+            expect{subject}.to change{ Post.find(post.id).cached_votes_down }.to(0)
         end
     end
 end
