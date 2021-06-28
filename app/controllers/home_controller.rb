@@ -5,6 +5,14 @@ class HomeController < ApplicationController
     @post = Post.all.order('updated_at DESC')
     if params[:search] && params[:search] != ""
         @post = @post.where("post_content LIKE ?", "%#{params[:search]}%")
+    elsif params[:order] == 'updated_at'
+        @post = Post.all.order('updated_at DESC')
+    elsif params[:order] == 'updated_at_old'
+        @post = Post.all.order('updated_at ASC')
+    elsif params[:order] == 'cached_votes_up'
+        @post = Post.all.order('cached_votes_up DESC')
+    elsif params[:order] == 'cached_votes_down'
+        @post = Post.all.order('cached_votes_down DESC')
     end
   end
 
