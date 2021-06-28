@@ -13,11 +13,17 @@ RSpec.describe PostsController, type: :controller do
 
     describe "POST #create" do
         let(:fac_user) {FactoryBot.create(:user)}
+        let(:upload_image) {fixture_file_upload(Rails.root.join('spec','controllers','moneyforwardlogo.png'), 'image/png')}
         let(:create_new){post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}}
+        let(:create_image) {post :create, :params => { :post => { post_content: "look", image: upload_image }, :format => :json}}
         before do
             Current.user = fac_user
         end
         it { expect{create_new}.to change(Post, :count).by(1) }
+
+        it 'attaches the uploaded image' do
+            expect {create_image}.to change(ActiveStorage::Attachment, :count).by(1)
+        end
     end
 
     describe "PUT #update" do
