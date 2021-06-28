@@ -3,6 +3,9 @@ class HomeController < ApplicationController
 
   def index
     @post = Post.all.order('updated_at DESC')
+    if params[:search] && params[:search] != ""
+        @post = @post.where("post_content LIKE ?", "%#{params[:search]}%")
+    end
   end
 
   def like
