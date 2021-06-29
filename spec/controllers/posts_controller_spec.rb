@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe PostsController, type: :controller do
     describe "index" do
         let(:fac_user) {FactoryBot.create(:user)}
-        before do
-            Current.user = fac_user
-        end
+        before {Current.user = fac_user}
         subject { get :index }
         it { is_expected.to be_successful }
         it { is_expected.to have_http_status "200" }
@@ -13,20 +11,21 @@ RSpec.describe PostsController, type: :controller do
 
     describe "POST #create" do
         let(:fac_user) {FactoryBot.create(:user)}
+        let(:upload_image) {fixture_file_upload(Rails.root.join('spec','controllers','moneyforwardlogo.png'), 'image/png')}
         let(:create_new){post :create, :params => { :post => { post_content: "Checking if I can add a post" }, :format => :json}}
-        before do
-            Current.user = fac_user
-        end
+        let(:create_image) {post :create, :params => { :post => { post_content: "look", image: upload_image }, :format => :json}}
+        before {Current.user = fac_user}
         it { expect{create_new}.to change(Post, :count).by(1) }
+        it 'attaches the uploaded image' do
+            expect {create_image}.to change(ActiveStorage::Attachment, :count).by(1)
+        end
     end
 
     describe "PUT #update" do
         let(:fac_user) {FactoryBot.create(:user)}
         let(:post) {Post.create(post_content: "Change me", username: fac_user.username)}
         let(:update_action) {put :update, params: { id: post.to_param, post: { post_content: 'I can edit'} }; post.reload}
-        before do
-            Current.user = fac_user
-        end
+        before {Current.user = fac_user}
         it "updates a post" do
             expect{update_action}.to change(post, :post_content).from("Change me").to("I can edit")
         end

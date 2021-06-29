@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :posts
-  resources :home do
+  resources :users, :posts
+  resources :home, only: [:index] do
     member do
         put 'like' => 'home#like'
         put "unlike" => "home#unlike"
@@ -9,8 +8,6 @@ Rails.application.routes.draw do
         put "undislike" => "home#undislike"
     end
   end
-  root 'home#index'
-  get 'index', to: 'home#index'
 
   get 'sign_up', to: 'registrations#new'
   post 'sign_up', to: 'registrations#create'
@@ -21,8 +18,6 @@ Rails.application.routes.draw do
 
   get 'password', to: 'passwords#edit', as: 'edit_password'
   patch 'password', to: 'passwords#update'
-  get 'password/reset', to: 'password_resets#new'
-  post 'password/reset', to: 'password_resets#create'
-  get 'password/reset/edit', to: 'password_resets#edit'
-  patch 'password/reset/edit', to: 'password_resets#update'
+
+  root 'home#index'
 end

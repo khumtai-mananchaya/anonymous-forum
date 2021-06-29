@@ -18,9 +18,10 @@
 		<% if Current.user %>
     	<li class="nav-item dropdown" style="list-style: none;">
       	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= image_tag(url_for(Current.user.avatar), :size => '30x30') if Current.user.avatar.attached? %>
         <%= Current.user.username %></a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        	<a class="dropdown-item" href="#">Profile</a>
+        	<%= link_to 'Profile', user_path(Current.user), class: "dropdown-item" %>
         	<%= link_to 'Edit Password', edit_password_path, class: "dropdown-item" %>
         	<%= link_to 'Logout', logout_path, method: :delete, class: "dropdown-item" %>
         </div>

@@ -8,6 +8,12 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Store uploaded files on the local file system in a temporary directory.
+  config.active_storage.service = :test
+
+  #MySQL client is not connected - error
+  config.active_job.queue_adapter = :test
+
   config.cache_classes = false
   config.action_view.cache_template_loading = true
 

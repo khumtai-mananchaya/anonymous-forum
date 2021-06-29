@@ -28,6 +28,7 @@ class PostsController < ApplicationController
     session[:post_id] = @post.id
     #Get current user id and add it to Post database
     @post.username = Current.user.username
+    @post.image.attach(post_params[:image]) if post_params[:image].present?
 
     respond_to do |format|
       if @post.save
@@ -44,6 +45,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params) && Current.user.username == @post.username
+        @post.image.attach(post_params[:image]) if post_params[:image].present?
         format.html { redirect_to @post, notice: "Post updated" }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -56,9 +58,10 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+     @post.image.purge
      @post.destroy
      respond_to do |format|
-     format.html { redirect_to posts_url, notice: "Post deleted" }
+     format.html { redirect_to root_path, notice: "Post deleted" }
      format.json { head :no_content }
     end
   end
@@ -72,7 +75,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:post_content, :id, :username)
+      params.require(:post).permit(:post_content, :id, :username, :image)
     end
     def only_authorized_user!
         redirect_to root_path, alert: 'You are not the owner of the post' if Current.user.username != @post.username
