@@ -1,7 +1,7 @@
 <h3>create a new post</h3>
 
 <% if Current.user %>
-<%= form_with model: @post, :html => {:class => "form"}, url: new_post_path do |f| %>
+<%= form_with model: @post, :html => {:class => "form"}, url: posts_path do |f| %>
 	<div class="form-group">
     <div class="form-group">
     	<%= f.label 'Content' %><br>
@@ -22,4 +22,4 @@
   </div>
 <% end %>
 
-<%= link_to 'back', posts_path %>
+<%= link_to 'back', root_path %>
