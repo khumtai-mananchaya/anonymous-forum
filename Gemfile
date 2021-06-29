@@ -17,6 +17,11 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'image_processing', '~> 1.2'
 gem 'acts_as_votable'
 
+gem 'rack-mini-profiler', '~> 2.0'
+gem 'listen', '~> 3.3'
+gem 'spring'
+gem 'spring-commands-rspec'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -29,10 +34,6 @@ end
 
 group :development do
   gem 'web-console', '>= 4.1.0'
-  gem 'rack-mini-profiler', '~> 2.0'
-  gem 'listen', '~> 3.3'
-  gem 'spring'
-  gem 'spring-commands-rspec'
 end
 
 group :test do
