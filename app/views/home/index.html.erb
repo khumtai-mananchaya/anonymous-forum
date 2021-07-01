@@ -1,6 +1,11 @@
-
-
 </br>
+<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+	<%= link_to "Last Updated", root_path(order: 'updated_at'), class:"btn btn-secondary", type:"button" %>
+	<%= link_to "Oldest Updated", root_path(order: 'updated_at_old'), class:"btn btn-secondary", type:"button" %>
+	<%= link_to "Liked", root_path(order: 'cached_votes_up'), class:"btn btn-secondary", type:"button" %>
+  <%= link_to "Angry", root_path(order: 'cached_votes_down'), class:"btn btn-secondary", type:"button" %>
+</div>
+</br></br>
 <% @post.each do |pc| %>
   <div class="card" style="width: 50rem;">
 

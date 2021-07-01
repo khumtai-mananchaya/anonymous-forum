@@ -13,6 +13,14 @@
         	<a class="nav-item nav-link" href="/posts/new">New</a>
       	</li>
       <% end %>
+      <form class="form-inline">
+      <%= form_tag "/home", method: "GET" do %>
+		<%= label_tag(:search, "") %>
+		<%= text_field_tag(:search, params[:search], placeholder: "Search for posts", class: "form-control mr-sm-2") %>
+		<%= submit_tag("Search", class:"btn btn-outline-success my-2 my-sm-0") %>
+  		<%end%></form>
+
+
     </ul>
 
 		<% if Current.user %>
